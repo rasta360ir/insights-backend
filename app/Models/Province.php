@@ -14,4 +14,14 @@ class Province extends Model
         'title',
         'slug',
     ];
+
+    /**
+     * Get the cities for the province.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cities(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(City::class);
+    }
 }
