@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\ContactFormController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,12 @@ Route::prefix('admin')->group(function () {
     Route::apiResource('departments', DepartmentController::class);
 });
 
+
+Route::get('customers', function () {
+    $data = \App\Services\DataService::getCustomers();
+    return response()->json($data, 200);
+});
+
+
+// contact forms
+Route::apiResource('contact-forms', ContactFormController::class);
