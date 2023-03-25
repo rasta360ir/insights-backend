@@ -26,4 +26,14 @@ class Province extends Model
     {
         return $this->hasMany(City::class);
     }
+
+    /**
+     * Get the organizations for the province.
+     *
+     * @return HasMany
+     */
+    public function organizations(): HasMany
+    {
+        return $this->hasMany(Organization::class);
+    }
 }

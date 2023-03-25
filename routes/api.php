@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Application\RecommendationController;
 use App\Http\Controllers\ContactFormController;
@@ -34,9 +35,17 @@ Route::get('customers', function () {
  */
 Route::prefix('admin')->group(function () {
     Route::apiResource('departments', DepartmentController::class);
-    Route::apiResource('categories', CategoryController::class);
-});
 
+    // categories admin routes
+    Route::apiResource('categories', CategoryController::class);
+    Route::post('categories/{category}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
+    Route::post('categories/{category}/remove', [CategoryController::class, 'remove'])->name('categories.remove');
+
+    // organizations admin routes
+    Route::apiResource('organizations', OrganizationController::class);
+    Route::post('organizations/{organization}/restore', [OrganizationController::class, 'restore'])->name('organizations.restore');
+    Route::post('organizations/{organization}/remove', [OrganizationController::class, 'remove'])->name('organizations.remove');
+});
 
 
 /**
