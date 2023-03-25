@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
 
             DepartmentSeeder::class,
+            CategorySeeder::class,
         ]);
     }
 }
