@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\SocialNetworkController;
@@ -83,6 +84,9 @@ Route::prefix('admin')->group(function () {
 
     // departments admin routes
     Route::apiResource('departments', DepartmentController::class);
+
+    // jobs admin routes
+    Route::apiResource('jobs', JobController::class);
 });
 
 

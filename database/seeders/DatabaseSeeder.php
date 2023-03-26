@@ -18,14 +18,17 @@ class DatabaseSeeder extends Seeder
             ProvinceSeeder::class,
             CitySeeder::class,
 
-            DepartmentSeeder::class,
             CategorySeeder::class,
             OrganizationSeeder::class,
             CategoryOrganizationSeeder::class,
             WebsiteSeeder::class,
             ApplicationSeeder::class,
             SocialNetworkSeeder::class,
+
             NewsSeeder::class,
+
+            DepartmentSeeder::class,
+            JobSeeder::class,
         ]);
     }
 }
