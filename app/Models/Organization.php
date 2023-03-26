@@ -93,6 +93,14 @@ class Organization extends Model
     }
 
     /**
+     * Get the social network's of the organization
+     */
+    public function socialNetworks(): HasMany
+    {
+        return $this->hasMany(SocialNetwork::class);
+    }
+
+    /**
      * Get available statuses for the organization.
      */
     public static function getStatuses(): array

@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             CategoryOrganizationSeeder::class,
             WebsiteSeeder::class,
             ApplicationSeeder::class,
+            SocialNetworkSeeder::class,
         ]);
     }
 }
