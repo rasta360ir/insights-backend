@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\SocialNetworkController;
 use App\Http\Controllers\Admin\WebsiteController;
@@ -73,6 +74,13 @@ Route::prefix('admin')->group(function () {
         ->name('organizations.social-networks.restore');
     Route::post('organizations/{organization}/social-networks/{application}/remove', [SocialNetworkController::class, 'remove'])
         ->name('organizations.social-networks.remove');
+
+    // news admin routes
+    Route::apiResource('news', NewsController::class);
+    Route::post('news/{news}/restore', [NewsController::class, 'restore'])
+        ->name('news.restore');
+    Route::post('news/{news}/remove', [NewsController::class, 'remove'])
+        ->name('news.remove');
 });
 
 

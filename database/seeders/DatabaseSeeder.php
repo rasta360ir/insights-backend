@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             WebsiteSeeder::class,
             ApplicationSeeder::class,
             SocialNetworkSeeder::class,
+            NewsSeeder::class,
         ]);
     }
 }
