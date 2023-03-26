@@ -32,7 +32,8 @@ class OrganizationSeeder extends Seeder
                 $cityId = City::query()->where('name', 'LIKE', trim($cityName))->first()->id ?? NULL;
             }
 
-            Organization::create([
+
+            Organization::query()->create([
                 'id' => $organization->id,
                 'title' => $organization->title,
                 'slug' => $organization->slug,
@@ -63,7 +64,8 @@ class OrganizationSeeder extends Seeder
                 'closed_year' => $organization->closed_year,
                 'closed_month' => $organization->closed_month,
                 'closed_day' => $organization->closed_day,
-                'imageUrl' => $organization->image_url,
+                'image_url' => $organization->image_url,
+                'deleted_at' => $organization->deleted_at,
                 'created_at' => $organization->created_at,
                 'updated_at' => $organization->updated_at,
             ]);

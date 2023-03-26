@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->string('legal_title')->nullable();
             $table->string('known_as')->nullable();
             $table->foreignId('parent_id')
@@ -55,7 +55,7 @@ return new class extends Migration {
             $table->integer('closed_year')->nullable();
             $table->integer('closed_month')->nullable();
             $table->integer('closed_day')->nullable();
-            $table->string('imageUrl')->nullable();
+            $table->string('image_url')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
