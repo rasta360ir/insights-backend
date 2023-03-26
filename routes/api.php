@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OrganizationController;
+use App\Http\Controllers\Admin\PersonController;
 use App\Http\Controllers\Admin\SocialNetworkController;
 use App\Http\Controllers\Admin\WebsiteController;
 use App\Http\Controllers\Admin\WebsiteLogController;
@@ -96,6 +97,13 @@ Route::prefix('admin')->group(function () {
 
     // jobs admin routes
     Route::apiResource('jobs', JobController::class);
+
+    // people admin routes
+    Route::apiResource('people', PersonController::class);
+    Route::post('people/{person}/restore', [PersonController::class, 'restore'])
+        ->name('people.restore');
+    Route::post('people/{person}/remove', [PersonController::class, 'remove'])
+        ->name('people.remove');
 });
 
 
