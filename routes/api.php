@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\WebsiteController;
 use App\Http\Controllers\Application\RecommendationController;
 use App\Http\Controllers\ContactFormController;
@@ -57,6 +58,13 @@ Route::prefix('admin')->group(function () {
         ->name('organizations.websites.restore');
     Route::post('organizations/{organization}/websites/{website}/remove', [WebsiteController::class, 'remove'])
         ->name('organizations.websites.remove');
+
+    // applications admin routes
+    Route::apiResource('organizations.applications', ApplicationController::class);
+    Route::post('organizations/{organization}/applications/{application}/restore', [ApplicationController::class, 'restore'])
+        ->name('organizations.applications.restore');
+    Route::post('organizations/{organization}/applications/{application}/remove', [ApplicationController::class, 'remove'])
+        ->name('organizations.applications.remove');
 });
 
 

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             OrganizationSeeder::class,
             CategoryOrganizationSeeder::class,
             WebsiteSeeder::class,
+            ApplicationSeeder::class,
         ]);
     }
 }
