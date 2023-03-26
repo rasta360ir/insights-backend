@@ -28,7 +28,7 @@ class UpdateDepartmentRequest extends FormRequest
             'title' => [
                 'required',
                 'string',
-                'max:36',
+                'max:255',
                 Rule::unique('departments')
                     ->ignore($this->route('department')->id)
             ],

@@ -38,7 +38,6 @@ Route::get('customers', function () {
  * Admin Routes
  */
 Route::prefix('admin')->group(function () {
-    Route::apiResource('departments', DepartmentController::class);
 
     // categories admin routes
     Route::apiResource('categories', CategoryController::class);
@@ -81,6 +80,9 @@ Route::prefix('admin')->group(function () {
         ->name('news.restore');
     Route::post('news/{news}/remove', [NewsController::class, 'remove'])
         ->name('news.remove');
+
+    // departments admin routes
+    Route::apiResource('departments', DepartmentController::class);
 });
 
 
