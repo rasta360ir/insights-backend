@@ -12,7 +12,7 @@ use Illuminate\Http\JsonResponse;
 class WebsiteLogController extends Controller
 {
     /**
-     * Display a listing of the websites.
+     * Display a listing of the websiteLogs.
      *
      * @param Website $website
      * @return JsonResponse
@@ -23,7 +23,7 @@ class WebsiteLogController extends Controller
     }
 
     /**
-     * Store a newly created website in storage.
+     * Store a newly created websiteLog in storage.
      *
      * @param StoreWebsiteLogRequest $request
      * @param Website $website
@@ -39,7 +39,7 @@ class WebsiteLogController extends Controller
     }
 
     /**
-     * Display the specified website.
+     * Display the specified websiteLog.
      *
      * @param Website $website
      * @param WebsiteLog $websiteLog
@@ -51,7 +51,7 @@ class WebsiteLogController extends Controller
     }
 
     /**
-     * Update the specified website in storage.
+     * Update the specified websiteLog in storage.
      *
      * @param UpdateWebsiteLogRequest $request
      * @param Website $website
@@ -68,7 +68,7 @@ class WebsiteLogController extends Controller
     }
 
     /**
-     * Soft delete the specified website from storage.
+     * Soft delete the specified websiteLog from storage.
      *
      * @param Website $website
      * @param WebsiteLog $websiteLog

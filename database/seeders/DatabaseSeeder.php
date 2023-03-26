@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             WebsiteSeeder::class,
             WebsiteLogSeeder::class,
             ApplicationSeeder::class,
+            ApplicationLogSeeder::class,
             SocialNetworkSeeder::class,
 
             NewsSeeder::class,

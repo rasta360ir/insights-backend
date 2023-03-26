@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\ApplicationLogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\JobController;
@@ -71,6 +72,10 @@ Route::prefix('admin')->group(function () {
         ->name('organizations.applications.restore');
     Route::post('organizations/{organization}/applications/{application}/remove', [ApplicationController::class, 'remove'])
         ->name('organizations.applications.remove');
+
+    // application logs admin routes
+    Route::apiResource('applications.application-logs', ApplicationLogController::class)
+        ->except(['index', 'show']);
 
     // social networks admin routes
     Route::apiResource('organizations.social-networks', SocialNetworkController::class);
