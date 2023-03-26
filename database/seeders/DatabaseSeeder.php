@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             OrganizationSeeder::class,
             CategoryOrganizationSeeder::class,
             WebsiteSeeder::class,
+            WebsiteLogSeeder::class,
             ApplicationSeeder::class,
             SocialNetworkSeeder::class,
 

@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\SocialNetworkController;
 use App\Http\Controllers\Admin\WebsiteController;
-use App\Http\Controllers\Application\RecommendationController;
+use App\Http\Controllers\Admin\WebsiteLogController;
 use App\Http\Controllers\ContactFormController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +61,10 @@ Route::prefix('admin')->group(function () {
     Route::post('organizations/{organization}/websites/{website}/remove', [WebsiteController::class, 'remove'])
         ->name('organizations.websites.remove');
 
+    // website logs admin routes
+    Route::apiResource('websites.website-logs', WebsiteLogController::class)
+        ->except(['index', 'show']);
+
     // applications admin routes
     Route::apiResource('organizations.applications', ApplicationController::class);
     Route::post('organizations/{organization}/applications/{application}/restore', [ApplicationController::class, 'restore'])
@@ -95,7 +99,7 @@ Route::prefix('admin')->group(function () {
  */
 
 // recommendations
-Route::get('recommendations', [RecommendationController::class, 'index']);
+//Route::get('recommendations', [RecommendationController::class, 'index']);
 
 // contact forms
 Route::apiResource('contact-forms', ContactFormController::class);
