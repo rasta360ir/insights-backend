@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\WebsiteController;
 use App\Http\Controllers\Application\RecommendationController;
 use App\Http\Controllers\ContactFormController;
 use Illuminate\Http\Request;
@@ -38,13 +39,24 @@ Route::prefix('admin')->group(function () {
 
     // categories admin routes
     Route::apiResource('categories', CategoryController::class);
-    Route::post('categories/{category}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
-    Route::post('categories/{category}/remove', [CategoryController::class, 'remove'])->name('categories.remove');
+    Route::post('categories/{category}/restore', [CategoryController::class, 'restore'])
+        ->name('categories.restore');
+    Route::post('categories/{category}/remove', [CategoryController::class, 'remove'])
+        ->name('categories.remove');
 
     // organizations admin routes
     Route::apiResource('organizations', OrganizationController::class);
-    Route::post('organizations/{organization}/restore', [OrganizationController::class, 'restore'])->name('organizations.restore');
-    Route::post('organizations/{organization}/remove', [OrganizationController::class, 'remove'])->name('organizations.remove');
+    Route::post('organizations/{organization}/restore', [OrganizationController::class, 'restore'])
+        ->name('organizations.restore');
+    Route::post('organizations/{organization}/remove', [OrganizationController::class, 'remove'])
+        ->name('organizations.remove');
+
+    // websites admin routes
+    Route::apiResource('organizations.websites', WebsiteController::class);
+    Route::post('organizations/{organization}/websites/{website}/restore', [WebsiteController::class, 'restore'])
+        ->name('organizations.websites.restore');
+    Route::post('organizations/{organization}/websites/{website}/remove', [WebsiteController::class, 'remove'])
+        ->name('organizations.websites.remove');
 });
 
 
