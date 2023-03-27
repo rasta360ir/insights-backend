@@ -118,3 +118,9 @@ Route::post('contact-forms', [ContactFormController::class, 'store']);
 //Route::get('recommendations', [RecommendationController::class, 'index']);
 
 
+
+/**
+ * Reports
+ */
+Route::get('reports/organizations/most-visited', [\App\Reports\OrganizationReport::class, 'mostVisited']);
+
