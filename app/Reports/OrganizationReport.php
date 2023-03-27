@@ -4,13 +4,13 @@ namespace App\Reports;
 
 use App\Http\Resources\Insights\OrganizationResource;
 use App\Models\Organization;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 
 class OrganizationReport
 {
-    public function mostVisited(Request $request, $defaultCount = 10)
+    public function mostVisited(Request $request, $defaultCount = 10): AnonymousResourceCollection
     {
         $data = $request->validate([
             'count' => ['nullable', 'integer']

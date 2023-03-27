@@ -122,7 +122,7 @@ Route::prefix('admin')->group(function () {
 Route::post('contact-forms', [\App\Http\Controllers\Insights\ContactFormController::class, 'store']);
 
 // recommendations
-//Route::get('recommendations', [RecommendationController::class, 'index']);
+Route::get('recommendations', [\App\Http\Controllers\Insights\RecommendationsController::class, 'index']);
 
 // hubs
 Route::get('hubs', [\App\Http\Controllers\Insights\HubController::class, 'index']);
