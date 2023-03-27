@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             PersonSeeder::class,
 
             ContactFormSeeder::class,
+            UserOrganizationVisitsSeeder::class,
         ]);
     }
 }
