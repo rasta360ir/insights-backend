@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\PersonController;
 use App\Http\Controllers\Admin\SocialNetworkController;
 use App\Http\Controllers\Admin\WebsiteController;
 use App\Http\Controllers\Admin\WebsiteLogController;
-use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\Insights\ContactFormController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -111,8 +111,10 @@ Route::prefix('admin')->group(function () {
  * Application Routes
  */
 
+// Store contact form
+Route::post('contact-forms', [ContactFormController::class, 'store']);
+
 // recommendations
 //Route::get('recommendations', [RecommendationController::class, 'index']);
 
-// contact forms
-Route::apiResource('contact-forms', ContactFormController::class);
+
