@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\ApplicationLogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\HubController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OrganizationController;
@@ -11,7 +12,6 @@ use App\Http\Controllers\Admin\PersonController;
 use App\Http\Controllers\Admin\SocialNetworkController;
 use App\Http\Controllers\Admin\WebsiteController;
 use App\Http\Controllers\Admin\WebsiteLogController;
-use App\Http\Controllers\Insights\ContactFormController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -104,6 +104,13 @@ Route::prefix('admin')->group(function () {
         ->name('people.restore');
     Route::post('people/{person}/remove', [PersonController::class, 'remove'])
         ->name('people.remove');
+
+    // hubs admin routes
+    Route::apiResource('hubs', HubController::class);
+    Route::post('hubs/{hub}/restore', [HubController::class, 'restore'])
+        ->name('hubs.restore');
+    Route::post('hubs/{hub}/remove', [HubController::class, 'remove'])
+        ->name('hubs.remove');
 });
 
 
@@ -112,11 +119,13 @@ Route::prefix('admin')->group(function () {
  */
 
 // Store contact form
-Route::post('contact-forms', [ContactFormController::class, 'store']);
+Route::post('contact-forms', [\App\Http\Controllers\Insights\ContactFormController::class, 'store']);
 
 // recommendations
 //Route::get('recommendations', [RecommendationController::class, 'index']);
 
+// hubs
+Route::get('hubs', [\App\Http\Controllers\Insights\HubController::class, 'index']);
 
 
 /**

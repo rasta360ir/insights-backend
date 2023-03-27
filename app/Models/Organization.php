@@ -100,6 +100,11 @@ class Organization extends Model
         return $this->hasMany(SocialNetwork::class);
     }
 
+    public function hubs(): BelongsToMany
+    {
+        return $this->belongsToMany(Hub::class);
+    }
+
     /**
      * Get available statuses for the organization.
      */
