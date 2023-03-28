@@ -127,6 +127,9 @@ Route::get('recommendations', [\App\Http\Controllers\Insights\RecommendationsCon
 // hubs
 Route::get('hubs', [\App\Http\Controllers\Insights\HubController::class, 'index']);
 
+// search
+Route::get('/search', [\App\Http\Controllers\Insights\SearchController::class, 'index']);
+
 
 /**
  * Reports
