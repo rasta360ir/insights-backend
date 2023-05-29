@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property mixed $first_name
+ * @property mixed $last_name
+ */
 class Person extends Model
 {
     use HasFactory, SoftDeletes;
@@ -32,5 +36,10 @@ class Person extends Model
     public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    public function getFullName(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }
