@@ -2,6 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\OrganizationBusinessModelEnum;
+use App\Enums\OrganizationIpoEnum;
+use App\Enums\OrganizationOwnershipTypeEnum;
+use App\Enums\OrganizationProfileTypeEnum;
+use App\Enums\OrganizationStatusEnum;
+use App\Enums\OrganizationTypeEnum;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,6 +51,15 @@ class Organization extends Model
         'closed_month',
         'closed_day',
         'imageUrl',
+    ];
+
+    protected $casts = [
+//        'status' => OrganizationStatusEnum::class,
+//        'type' => OrganizationTypeEnum::class,
+//        'profile_type' => OrganizationProfileTypeEnum::class,
+//        'ownership_type' => OrganizationOwnershipTypeEnum::class,
+//        'business_model' => OrganizationBusinessModelEnum::class,
+//        'ipo' => OrganizationIpoEnum::class,
     ];
 
     /**
@@ -100,165 +116,83 @@ class Organization extends Model
         return $this->hasMany(SocialNetwork::class);
     }
 
+    /**
+     * Get the people that belongs to the organization
+     */
+    public function people(): HasMany
+    {
+        return $this->hasMany(Person::class);
+    }
+
+    /**
+     * Relation, agreements of the resource
+     */
+    public function agreements(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Agreement::class)
+            ->withPivot(['party']);
+    }
+
+    /**
+     * Relation, agreements of the resource that is in first side
+     */
+    public function firstSideParty(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            Agreement::class,
+            'agreement_organization',
+            'organization_id',
+            'agreement_id'
+        )
+            ->withPivot(['party'])
+            ->wherePivot('party', 1);
+    }
+
+    /**
+     * Relation, agreements of the resource that is in second side
+     */
+    public function secondSideParty(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            Agreement::class,
+            'agreement_organization',
+            'organization_id',
+            'agreement_id'
+        )
+            ->withPivot(['party'])
+            ->wherePivot('party', 2);
+    }
+
+    public function isInvestmentPartner()
+    {
+        return $this->belongsToMany(
+            Agreement::class,
+            'agreement_partners',
+            'organization_id',
+            'agreement_id'
+        );
+    }
+
     public function hubs(): BelongsToMany
     {
         return $this->belongsToMany(Hub::class);
     }
 
     /**
-     * Get available statuses for the organization.
+     * Get related News for the specified resource
      */
-    public static function getStatuses(): array
+    public function relatedNews($count = 4)
     {
-        return [
-            'active' => 'فعال',
-            'deactivated' => 'غیرفعال',
-            'closed' => 'اتمام فعالیت',
-        ];
-    }
+        $categories = $this->categories;
+        $tags = $categories->map(function ($catgory) {
+            return Tag::where('slug', $catgory->slug)->first()->id;
+        })->toArray();
 
-    /**
-     * Get status title for the organization.
-     */
-    public function getStatusTitle(): string
-    {
-        switch ($this->status) {
-            case 'active':
-                $title = 'فعال';
-                break;
-            case 'deactivated':
-                $title = 'غیرفعال';
-                break;
-            case 'closed':
-                $title = 'اتمام فعالیت';
-                break;
-            default:
-                $title = '';
-        }
+        $tags = array_merge($tags, [Tag::where('slug', $this->slug)->first()->id] ?? []);
 
-        return $title;
-    }
-
-    /**
-     * Get available types for the organization.
-     */
-    public static function getTypes(): array
-    {
-        return [
-            'startup-studio' => 'استارتاپ استودیو',
-            'foreign-investor' => 'سرمایه‌گذار خارجی',
-            'corporate-venture-capitalist' => 'سرمایه‌گذار خطرپذیر شرکتی',
-            'major-investor' => 'سرمایه‌گذار کلان',
-            'government-investor' => 'سرمایه‌گذار دولتی و سازمانی',
-            'angel-investor' => 'سرمایه‌گذار فرشته',
-            'accelerator' => 'شتابدهنده',
-            'venture-capital-company' => 'شرکت سرمایه‌گذاری خطرپذیر',
-            'research-fund' => 'صندوق پژوهش و فناوری',
-            'venture-capital-fund' => 'صندوق سرمایه‌گذاری خطرپذیر',
-            'business' => 'کسب‌و‌کار',
-            'innovation-center' => 'مرکز نوآوری',
-            'investment-holding' => 'هلدینگ سرمایه‌گذاری',
-            'other' => 'سایر(شامل سرمایه‌گذاری جمعی و ...)',
-        ];
-    }
-
-    /**
-     * Get available profile_types for the organization
-     */
-    public static function getProfileTypes(): array
-    {
-        return [
-            'organization' => 'شرکت',
-            'investment-firm' => 'شرکت سرمایه‌گذاری',
-        ];
-    }
-
-    /**
-     * Get profile_type title for the organization.
-     */
-    public function getProfileTypeTitle(): string
-    {
-        switch ($this->profile_type) {
-            case 'organization':
-                $title = 'کسب‌و‌کار';
-                break;
-            case 'investment-firm':
-                $title = 'شرکت سرمایه‌گذاری';
-                break;
-            default:
-                $title = '';
-        }
-
-        return $title;
-    }
-
-    /**
-     * Get available ownership_types for the organization.
-     */
-    public static function getOwnershipTypes(): array
-    {
-        return [
-            'private' => 'سهامی خاص',
-            'limited' => 'مسئولیت محدود',
-            'solidarity' => 'تضامنی',
-            'cooperative' => 'تعاونی',
-            'public' => 'سهامی عام',
-        ];
-    }
-
-    /**
-     * Get ownership_type title for the organization.
-     */
-    public function getOwnershipTypeTitle(): string
-    {
-        switch ($this->ownership_type) {
-            case 'private':
-                $title = 'سهامی خاص';
-                break;
-            case 'limited':
-                $title = 'مسئولیت محدود';
-                break;
-            case 'solidarity':
-                $title = 'تضامنی';
-                break;
-            case 'cooperative':
-                $title = 'تعاونی';
-                break;
-            case 'public':
-                $title = 'سهامی عام';
-                break;
-            default:
-                $title = '';
-        }
-
-        return $title;
-    }
-
-    /**
-     * Get available business_models for the organization.
-     */
-    public static function getBusinessModels(): array
-    {
-        return [
-            'B2B',
-            'B2C',
-            'C2C',
-            'B2B-B2C',
-            'B2C-C2C',
-            'C2B',
-            'B2G',
-        ];
-    }
-
-    /**
-     * Get available IPO statuses for the organization.
-     */
-    public static function getIpoStatuses(): array
-    {
-        return [
-            'public' => 'عمومی',
-            'private' => 'خصوصی',
-            'delisted' => 'حذف‌ شده',
-        ];
+        $news = News::whereHas('tags', function (Builder $query) use ($tags) {
+            $query->whereIn('id', $tags);
+        })->orderBy('registered_at', 'DESC')->take($count);
+        return $news;
     }
 }
