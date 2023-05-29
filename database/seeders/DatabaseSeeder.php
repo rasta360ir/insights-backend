@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            UserSeeder::class,
             ProvinceSeeder::class,
             CitySeeder::class,
 
@@ -28,6 +29,8 @@ class DatabaseSeeder extends Seeder
             SocialNetworkSeeder::class,
 
             NewsSeeder::class,
+            TagSeeder::class,
+            TaggableSeeder::class,
 
             DepartmentSeeder::class,
             JobSeeder::class,
@@ -35,6 +38,8 @@ class DatabaseSeeder extends Seeder
 
             ContactFormSeeder::class,
             UserOrganizationVisitsSeeder::class,
+
+            FAQSeeder::class,
         ]);
     }
 }
