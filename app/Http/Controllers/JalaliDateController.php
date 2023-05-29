@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Date\JalaliMonthEnum;
-use Illuminate\Http\Request;
 use Spatie\LaravelOptions\Options;
 
 class JalaliDateController extends Controller
