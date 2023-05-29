@@ -3,12 +3,14 @@
 use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\ApplicationLogController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\HubController;
 use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PersonController;
+use App\Http\Controllers\Admin\ProvinceController;
 use App\Http\Controllers\Admin\SocialNetworkController;
 use App\Http\Controllers\Admin\WebsiteController;
 use App\Http\Controllers\Admin\WebsiteLogController;
@@ -111,6 +113,12 @@ Route::prefix('admin')->group(function () {
         ->name('hubs.restore');
     Route::post('hubs/{hub}/remove', [HubController::class, 'remove'])
         ->name('hubs.remove');
+
+    // provinces
+    Route::apiResource('provinces', ProvinceController::class);
+
+    // cities
+    Route::apiResource('cities', CityController::class);
 });
 
 
@@ -136,3 +144,22 @@ Route::get('/search', [\App\Http\Controllers\Insights\SearchController::class, '
  */
 Route::get('reports/organizations/most-visited', [\App\Reports\OrganizationReport::class, 'mostVisited']);
 
+
+
+/**
+ * Data
+ */
+Route::get('organizations/status', [OrganizationController::class, 'getStatusItems']);
+Route::get('organizations/type', [OrganizationController::class, 'getTypeItems']);
+Route::get('organizations/profile-type', [OrganizationController::class, 'getProfileTypeItems']);
+Route::get('organizations/ownership-type', [OrganizationController::class, 'getOwnershipTypeItems']);
+Route::get('organizations/business-model', [OrganizationController::class, 'getBusinessModelItems']);
+Route::get('organizations/ipo', [OrganizationController::class, 'getIpoItems']);
+
+Route::get('date/jalali/months', [\App\Http\Controllers\JalaliDateController::class, 'getMonths']);
+
+
+/**
+ * Insights routes
+ */
+require __DIR__.'/insights.php';
