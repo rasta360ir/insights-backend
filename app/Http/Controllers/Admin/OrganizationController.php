@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\OrganizationBusinessModelEnum;
+use App\Enums\OrganizationIpoEnum;
+use App\Enums\OrganizationOwnershipTypeEnum;
+use App\Enums\OrganizationProfileTypeEnum;
+use App\Enums\OrganizationStatusEnum;
+use App\Enums\OrganizationTypeEnum;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Organization\StoreOrganizationRequest;
 use App\Http\Requests\Admin\Organization\UpdateOrganizationRequest;
 use App\Models\Organization;
+use Spatie\LaravelOptions\Options;
 
 class OrganizationController extends Controller
 {
@@ -18,6 +25,7 @@ class OrganizationController extends Controller
     public function index(): JsonResponse
     {
         $organizations = Organization::query()
+            ->withTrashed()
             ->latest('id')
             ->with(['province', 'city'])
             ->get();
@@ -104,5 +112,59 @@ class OrganizationController extends Controller
         $result = Organization::withTrashed()->findOrFail($id)->forceDelete();
 
         return response()->json($result);
+    }
+
+    public function getStatusItems(): string
+    {
+        try {
+            return Options::forEnum(OrganizationStatusEnum::class)->toJson();
+        } catch (\Exception $e) {
+            return 'something went wrong.';
+        }
+    }
+
+    public function getTypeItems(): string
+    {
+        try {
+            return Options::forEnum(OrganizationTypeEnum::class)->toJson();
+        } catch (\Exception $e) {
+            return 'something went wrong.';
+        }
+    }
+
+    public function getProfileTypeItems(): string
+    {
+        try {
+            return Options::forEnum(OrganizationProfileTypeEnum::class)->toJson();
+        } catch (\Exception $e) {
+            return 'something went wrong.';
+        }
+    }
+
+    public function getOwnershipTypeItems(): string
+    {
+        try {
+            return Options::forEnum(OrganizationOwnershipTypeEnum::class)->toJson();
+        } catch (\Exception $e) {
+            return 'something went wrong.';
+        }
+    }
+
+    public function getBusinessModelItems(): string
+    {
+        try {
+            return Options::forEnum(OrganizationBusinessModelEnum::class)->toJson();
+        } catch (\Exception $e) {
+            return 'something went wrong.';
+        }
+    }
+
+    public function getIpoItems(): string
+    {
+        try {
+            return Options::forEnum(OrganizationIpoEnum::class)->toJson();
+        } catch (\Exception $e) {
+            return 'something went wrong.';
+        }
     }
 }
