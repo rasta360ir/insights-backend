@@ -2,6 +2,12 @@
 
 namespace App\Http\Requests\Admin\Organization;
 
+use App\Enums\OrganizationBusinessModelEnum;
+use App\Enums\OrganizationIpoEnum;
+use App\Enums\OrganizationOwnershipTypeEnum;
+use App\Enums\OrganizationProfileTypeEnum;
+use App\Enums\OrganizationStatusEnum;
+use App\Enums\OrganizationTypeEnum;
 use App\Models\City;
 use App\Models\Organization;
 use App\Models\Province;
@@ -35,12 +41,12 @@ class StoreOrganizationRequest extends FormRequest
             'parent_id' => ['nullable', 'integer', 'exists:organizations,id'],
             'categories' => ['nullable', 'array'],
             'categories.*' => ['required', 'integer', 'exists:categories,id'],
-            'status' => ['nullable', 'string', 'max:255', Rule::in(array_keys(Organization::getStatuses()))],
-            'type' => ['nullable', 'string', 'max:255', Rule::in(array_keys(Organization::getTypes()))],
-            'profile_type' => ['nullable', 'string', 'max:255', Rule::in(array_keys(Organization::getProfileTypes()))],
-            'ownership_type' => ['nullable', 'string', 'max:255', Rule::in(array_keys(Organization::getOwnershipTypes()))],
-            'business_model' => ['nullable', 'string', 'max:255', Rule::in(Organization::getBusinessModels())],
-            'ipo' => ['nullable', 'string', 'max:255', Rule::in(array_keys(Organization::getIpoStatuses()))],
+            'status' => ['nullable', 'string', 'max:255', Rule::in(OrganizationStatusEnum::values())],
+            'type' => ['nullable', 'string', 'max:255', Rule::in(OrganizationTypeEnum::values())],
+            'profile_type' => ['nullable', 'string', 'max:255', Rule::in(OrganizationProfileTypeEnum::values())],
+            'ownership_type' => ['nullable', 'string', 'max:255', Rule::in(OrganizationOwnershipTypeEnum::values())],
+            'business_model' => ['nullable', 'string', 'max:255', Rule::in(OrganizationBusinessModelEnum::values())],
+            'ipo' => ['nullable', 'string', 'max:255', Rule::in(OrganizationIpoEnum::values())],
             'num_employees' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable'],
             'body' => ['nullable'],
@@ -50,13 +56,19 @@ class StoreOrganizationRequest extends FormRequest
             'city_id' => ['nullable', 'integer', Rule::in(City::query()->get()->pluck('id')->toArray())],
             'primary_address' => ['nullable', 'max:255'],
             'secondary_address' => ['nullable', 'max:255'],
-            'founded_year' => ['nullable', 'integer', 'between:1300,' . jdate(now())->format('Y')],
+            'founded_year' => ['nullable', 'integer',
+//                'between:1300,' . jdate(now())->format('Y')
+            ],
             'founded_month' => ['nullable', 'integer', 'between:1,12'],
             'founded_day' => ['nullable', 'integer', 'between:1,31'],
-            'registered_year' => ['nullable', 'integer', 'between:1300,' . jdate(now())->format('Y')],
+            'registered_year' => ['nullable', 'integer',
+//                'between:1300,' . jdate(now())->format('Y')
+            ],
             'registered_month' => ['nullable', 'integer', 'between:1,12'],
             'registered_day' => ['nullable', 'integer', 'between:1,31'],
-            'closed_year' => ['nullable', 'integer', 'between:1300,' . jdate(now())->format('Y')],
+            'closed_year' => ['nullable', 'integer',
+//                'between:1300,' . jdate(now())->format('Y')
+            ],
             'closed_month' => ['nullable', 'integer', 'between:1,12'],
             'closed_day' => ['nullable', 'integer', 'between:1,31'],
             'imageUrl' => ['nullable', 'image'],
