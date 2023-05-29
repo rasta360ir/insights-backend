@@ -21,6 +21,17 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
+            $table->string('phone')->nullable();
+            $table->string('business')->nullable();
+            $table->string('position')->nullable();
+            $table->string('intention')->nullable();
+
+            $table->string('google_id')->nullable();
+            $table->string('linkedin_id')->nullable();
+
+//            $table->unsignedBigInteger('avatar')->nullable(); // avatar
+            $table->softDeletes();
             $table->timestamps();
         });
     }
