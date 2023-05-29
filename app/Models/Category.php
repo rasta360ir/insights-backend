@@ -29,6 +29,14 @@ class Category extends Model
     }
 
     /**
+     * Scope a query to only include subcategories.
+     */
+    public function scopeSubcategories($query)
+    {
+        $query->whereNotNull('parent_id');
+    }
+
+    /**
      * Get parent of the category.
      */
     public function parent(): BelongsTo
