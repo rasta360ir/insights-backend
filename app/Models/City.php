@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,11 @@ class City extends Model
         'province_id',
         'active',
     ];
+
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('active', 1);
+    }
 
     /**
      * Get the province that owns the city.
