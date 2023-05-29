@@ -163,3 +163,4 @@ Route::get('date/jalali/months', [\App\Http\Controllers\JalaliDateController::cl
  * Insights routes
  */
 require __DIR__.'/insights.php';
+require __DIR__.'/admin.php';
