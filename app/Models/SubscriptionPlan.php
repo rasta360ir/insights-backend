@@ -19,4 +19,9 @@ class SubscriptionPlan extends Model
         'yearly_price',
         'featured',
     ];
+
+    public function features()
+    {
+        return $this->hasMany(SubscriptionPlanFeature::class);
+    }
 }

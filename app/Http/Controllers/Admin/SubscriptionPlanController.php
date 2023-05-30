@@ -15,7 +15,7 @@ class SubscriptionPlanController extends Controller
      */
     public function index()
     {
-        return SubscriptionPlan::all();
+        return SubscriptionPlan::with('features')->get();
     }
 
     /**
@@ -26,6 +26,6 @@ class SubscriptionPlanController extends Controller
      */
     public function show(SubscriptionPlan $subscriptionPlan)
     {
-        return $subscriptionPlan;
+        return $subscriptionPlan->load('features');
     }
 }
