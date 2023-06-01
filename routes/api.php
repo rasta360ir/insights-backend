@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return new \App\Http\Resources\Insights\UserResource($request->user());
 });
 
 

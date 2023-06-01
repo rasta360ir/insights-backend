@@ -33,6 +33,7 @@ class UserSeeder extends Seeder
                 'intention' => $user->intention,
                 'google_id' => $user->google_id,
                 'linkedin_id' => $user->linkedin_id,
+                'avatar' => $user->image_url,
                 'deleted_at' => $user->deleted_at,
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at,

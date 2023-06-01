@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('google_id')->nullable();
             $table->string('linkedin_id')->nullable();
 
-//            $table->unsignedBigInteger('avatar')->nullable(); // avatar
+            $table->string('avatar')->nullable(); // avatar
             $table->softDeletes();
             $table->timestamps();
         });
