@@ -14,9 +14,9 @@ return new class extends Migration {
     {
         Schema::create('provinces', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 20);
+            $table->string('name', 20);
             $table->string('slug', 20)->nullable();
-            $table->softDeletes();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
