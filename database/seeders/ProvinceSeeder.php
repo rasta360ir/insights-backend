@@ -50,10 +50,11 @@ class ProvinceSeeder extends Seeder
         ];
 
         foreach ($provinces as $province) {
-            Province::create([
+            Province::query()->create([
                 'id' => $province[0],
-                'title' => $province[1],
+                'name' => $province[1],
                 'slug' => $province[2],
+                'active' => true,
             ]);
         }
     }

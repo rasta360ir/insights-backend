@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 30);
-            $table->string('slug', 30)->nullable();
+            $table->string('name');
+            $table->string('slug')->nullable();
             $table->foreignId('province_id')
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
-            $table->softDeletes();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
